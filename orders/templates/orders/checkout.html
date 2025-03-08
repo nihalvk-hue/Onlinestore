@@ -1,0 +1,233 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 80px;
+        }
+
+        h1 {
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .qr-code {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .qr-code img {
+            width: 80%;
+            max-width: 250px;
+            border-radius: 10px;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        textarea {
+            height: 60px;
+        }
+
+        .fixed-button {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            padding: 10px 0px;
+            box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .submit-btn {
+            width: 90%;
+            max-width: 400px;
+            padding: 12px;
+            background: black;
+            color: white;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 18px;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            background: #f5f5f5;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        /* Payment Screenshot Preview */
+        .screenshot-preview {
+            display: none;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .screenshot-preview img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="javascript:history.back()" class="back-button">← Back</a>
+
+        <h1>Checkout</h1>
+        <p>Scan the QR code below to complete your payment via Google Pay:</p>
+
+        <!-- QR Code -->
+        <div class="qr-code">
+            {% if qr_code %}
+                <img src="{{ qr_code.image.url }}" alt="UPI QR Code">
+            {% else %}
+                <p>No QR Code available</p>
+            {% endif %}
+        </div>
+        
+
+<!-- Display UPI ID -->
+{% if upi %}
+    <p><strong>UPI ID:</strong> <span id="upiID">{{ upi.upi_id }}</span></p>
+    <button onclick="copyUPI()">Copy UPI ID</button>
+{% else %}
+    <p>No UPI ID available</p>
+{% endif %}
+
+        <p>After making the payment, fill in your details and confirm your order.</p>
+
+        <form id="checkout-form" method="POST" action="{% url 'order_success' product.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% if selected_color %}
+                <p><strong>Selected Color:</strong> {{ selected_color.name }}</p>
+                <div class="color-option" style="background-color: {{ selected_color.hex_code }};"></div>
+                <input type="hidden" name="color" value="{{ selected_color.id }}">
+            {% else %}
+                <p style="color: red;">No color selected!</p>
+            {% endif %}
+            
+            <label>Name:</label>
+            <input type="text" name="name" required>
+
+            <label>Phone Number:</label>
+            <input type="text" name="phone" required>
+            
+            <label>Alternative Mobile Number:</label>
+            <input type="text" name="alt_phone" required>
+
+            <label>Email:</label>
+            <input type="email" name="email" required>
+
+            <label>Address:</label>
+            <textarea name="address" required></textarea>
+
+            <label>Pincode:</label>
+            <input type="text" name="pincode" required>
+            
+            <!-- Payment Screenshot Upload -->
+            <label>Upload Payment Screenshot:</label>
+            <input type="file" id="payment_screenshot" name="payment_screenshot" accept="image/*" required>
+            
+            <!-- Screenshot Preview -->
+            <div class="screenshot-preview" id="screenshotPreview">
+                <p>Preview:</p>
+                <img id="previewImage" src="#" alt="Screenshot Preview">
+            </div>
+
+            <label>Transaction ID:</label>
+            <input type="text" name="upi_transaction_id" placeholder="Enter UPI Transaction ID" required>
+
+            <!-- Submit Button -->
+            <div class="fixed-button">
+                <button type="submit" class="submit-btn">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to preview the uploaded screenshot
+        document.getElementById('payment_screenshot').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Check if file is an image
+                if (!file.type.startsWith('image/')) {
+                    alert('Please upload a valid image file.');
+                    event.target.value = ''; // Reset the input
+                    return;
+                }
+
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImage').src = e.target.result;
+                    document.getElementById('screenshotPreview').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // Hide preview if no file selected
+                document.getElementById('screenshotPreview').style.display = 'none';
+            }
+        });
+        
+
+    function copyUPI() {
+        const upiText = document.getElementById("upiID").innerText;
+        navigator.clipboard.writeText(upiText).then(() => {
+            alert("UPI ID copied to clipboard!");
+        }).catch(err => {
+            console.error("Failed to copy:", err);
+        });
+    }
+
+    </script>
+
+</body>
+</html>

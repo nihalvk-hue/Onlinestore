@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onesell - Home</title>
+    <!-- Add this in your <head> to include Font Awesome -->
+    <!-- Favicon -->
+<link rel="icon" href="{% static 'icons/favicon.ico' %}" type="image/x-icon">
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="{% static 'manifest.json' %}">
+
+<!-- Apple Touch Icon (for iOS) -->
+<link rel="apple-touch-icon" href="{% static 'icons/icon-192x192.png' %}">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding-bottom: 60px; 
+            /* Space for bottom navbar */
+            background-color: #f5f5f5;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            padding: 15px 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0px;
+            height: 20px;
+        }
+        
+        /* Logo Image */
+        .navbar img {
+            height: 210%; /* Make the image fit inside the navbar */
+            max-height: 60px; /* Ensure it doesn’t overflow */
+           width: auto; /* Maintain aspect ratio */
+           }
+           
+           
+
+        .navbar a {
+            font-family: verdena;
+            padding-right: 10px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Hero Section */
+      /* Hero Section */
+.hero {
+    width: 100%; /* Full-width */
+    height: 170px; /* Adjust height */
+    position: relative;
+    text-align: center;
+    color: white;
+    margin: 0;
+    overflow: hidden;
+}
+
+.hero-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.hero-image {
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    object-fit: cover; /* Ensures the image fills the section without stretching */
+    display: block;
+}
+
+.hero-link {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Buy Now Button inside Image */
+.buy-button {
+    position: absolute;
+    bottom: 15px;
+    left: 20%;
+    transform: translateX(-50%);
+    background: black; /* Red semi-transparent */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.buy-button:hover {
+    background: rgba(255, 0, 0, 1);
+}
+
+
+        /* Category Section */
+.categories {
+    margin: 0px 0px;
+    padding: 0px 10px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.see-all {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.category-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0px 2px;
+}
+
+.category-scroll {
+    display: flex;
+    gap: 15px;
+}
+
+.category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 80px;
+}
+
+.category-card a {
+    text-decoration: none;
+    color: #333;
+}
+
+.category-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    transition: transform 0.3s;
+}
+
+.category-image:hover {
+    transform: scale(1.1);
+}
+
+.category-card p {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+
+      /* Product Grid */
+.latest-products {
+    padding: 10px 20px; /* Adjust padding for better spacing */
+    margin: 0px;
+}
+
+.product-container {
+    display: flex;
+    gap: 15px; /* Space between products */
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Product Card */
+.product-card {
+    width: 150px; /* Fixed width for better alignment */
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 8px;
+    height: 200px; /* Set a consistent height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Product Image */
+.product-card img {
+    width: 100%; /* Ensures full width inside the card */
+    height: 100px; /* Fixed height for uniformity */
+    object-fit: cover; /* Prevents image distortion */
+    border-radius: 8px;
+}
+
+/* Product Info */
+.product-info {
+    padding: 5px;
+    flex-grow: 1; /* Allows text to adjust dynamically */
+}
+
+/* Price Section */
+.price {
+    color: #ff3b30;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+del {
+    color: gray;
+    font-size: 12px;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+
+        /* Bottom Navigation Bar */
+                .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            border-top: 1px solid #ccc;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .bottom-nav a {
+            text-align: center;
+            flex: 1;
+            padding: 10px 0;
+            text-decoration: none;
+            color: black;
+            font-size: 20px;
+        }
+
+        .bottom-nav a span {
+            display: block;
+            font-size: 10px;
+            margin-top: 2px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item.active {
+            color: #007bff;
+            font-weight: bold;
+        }
+      
+
+         .nav-item.active i, .nav-item.active span {
+             color: #007bff;
+          }
+        
+/* Chrome-specific solution for Termux environment */
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, button {
+    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+}
+
+.bottom-nav a {
+    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+    -webkit-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    outline: none !important;
+}
+
+/* Force remove all outline and highlighting behaviors */
+:active, :focus {
+    outline: 0 !important;
+    outline-style: none !important;
+    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+    -moz-outline-style: none !important;
+    box-shadow: none !important;
+}
+        
+    </style>
+</head>
+<body>
+  <script>
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register("{% static 'js/service-worker.js' %}")
+    .then(function() {
+        console.log("Service Worker Registered");
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Get the current URL path
+    const currentPath = window.location.pathname;
+
+    // Loop through each navigation item
+    document.querySelectorAll(".nav-item").forEach(link => {
+        // Get the path from the href attribute
+        const linkPath = link.getAttribute("href");
+        
+        // Check if the current path matches or ends with the link path
+        if (linkPath === currentPath || 
+            (linkPath !== "#" && currentPath.endsWith(linkPath))) {
+            link.classList.add("active");
+        }
+    });
+});
+</script>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="/static/icons/logorm.png" width="50px" height="50px">
+        <a href="#" >Onesell</a>
+        <a href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i><span> </span></a>
+
+    </nav>
+
+    <!-- Hero Section -->
+    {% if hero_section %}
+    <section class="hero">
+        
+       <!--<h1>{{ hero_section.product.name }}</h1>
+       <p>{{ hero_section.product.description }}</p>-->
+       
+       <div class="hero-container">
+            <a href="{% url 'product_detail' hero_section.product.id %}" class="hero-link">
+                <img src="{{ hero_section.image.url }}" alt="{{ hero_section.product.name }}" class="hero-image">
+                <span class="buy-button">Shop Now</span>
+            </a>
+        </div>
+        
+    </section>
+    {% endif %}
+    
+
+    <!-- Categories -->
+    <section class="categories">
+    <div class="section-header">
+        <h4>Shop By Category</h4>
+
+    </div>
+
+    <div class="category-container">
+        <div class="category-scroll">
+            {% for category in categories %}
+                <div class="category-card">
+                    <a href="{% url 'category_products' category.id %}">
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}" class="category-image">
+                        <p>{{ category.name }}</p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+    <!-- Product List -->
+    <section class="latest-products">
+    <h4>Latest collection</h4>
+    <div class="product-container">
+        {% for product in latest_products %}
+            {% if product.id %}
+                <div class="product-card">
+                    <a href="{% url 'product_detail' product.id %}">
+                        <img src="{{ product.images.first.image.url }}" alt="{{ product.name }}">
+                        <div class="product-info">
+                            <h3>{{ product.name }}</h3>
+                            <p class="price">₹{{ product.price }} <del>₹{{ product.old_price }}</del></p>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+
+
+<!-- Bottom Navigation -->
+<div class="bottom-nav">
+    <a href="{% url 'home' %}" class="nav-item active"><i class="fas fa-home"></i><span> Home</span></a>
+    <a href="{% url 'product_list' %}" class="nav-item"><i class="fas fa-search"></i><span> Explore</span></a>
+    <a href="{% url 'track_order' %}"  class="nav-item"><i class="fas fa-box"></i><span> Track Order</span></a>
+    <a href="{% url 'contact' %}"  class="nav-item"><i class="fas fa-phone"></i><span> Contact Us</span></a>
+</div>
+
+
+
+</body>
+</html>

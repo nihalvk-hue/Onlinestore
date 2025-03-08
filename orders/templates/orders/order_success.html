@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Successful</title>
+</head>
+<body>
+    <h2>Order Placed Successfully!</h2>
+    <p>Thank you, {{ order.name }}. Your order for <strong>{{ order.product.name }}</strong> has been placed.</p>
+    <p>Transaction ID: {{ order.upi_transaction_id }}</p>
+    <p>We will deliver to: {{ order.address }}, {{ order.pincode }}</p>
+    <a href="{% url 'product_list' %}">Back to Shop</a>
+</body>
+</html>
+

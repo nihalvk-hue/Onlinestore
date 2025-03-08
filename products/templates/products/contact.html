@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Onesell</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding-bottom: 60px;
+            background-color: #f5f5f5;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            padding: 15px 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0px;
+            height: 20px;
+        }
+        
+        /* Logo Image */
+        .navbar img {
+            height: 210%; /* Make the image fit inside the navbar */
+            max-height: 60px; /* Ensure it doesn’t overflow */
+           width: auto; /* Maintain aspect ratio */
+           }
+           
+           
+
+        .navbar a {
+            font-family: verdena;
+            padding-right: 10px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .contact-section {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .contact-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-links a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            width: 250px;
+            justify-content: center;
+        }
+
+        .contact-links a:hover {
+            background: #ddd;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            border-top: 1px solid #ccc;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .bottom-nav a {
+            text-align: center;
+            flex: 1;
+            padding: 10px 0;
+            text-decoration: none;
+            color: black;
+            font-size: 20px;
+        }
+
+        .bottom-nav a span {
+            display: block;
+            font-size: 10px;
+            margin-top: 2px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item.active {
+            color: #007bff;
+            font-weight: bold;
+        }
+        
+/* Chrome-specific solution for Termux environment */
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, button {
+    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+}
+
+.bottom-nav a {
+    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+    -webkit-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    outline: none !important;
+}
+
+/* Force remove all outline and highlighting behaviors */
+:active, :focus {
+    outline: 0 !important;
+    outline-style: none !important;
+    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+    -moz-outline-style: none !important;
+    box-shadow: none !important;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="/static/icons/logorm.png" width="50px" height="50px">
+        <a href="#" >Onesell</a>
+        <a href="{% url 'cart_view' %}"><i class="fas fa-shopping-cart"></i><span> </span></a>
+
+    </nav>
+    
+    
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <h2>Contact Us</h2>
+        <div class="contact-links">
+            <a href="mailto:onesell.buy@gmail.com"><i class="fas fa-envelope"></i> Gmail</a>
+            <a href="https://www.instagram.com/0nesell" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.facebook.com/your_facebook" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="{% url 'home' %}" class="nav-item"><i class="fas fa-home"></i><span> Home</span></a>
+        <a href="{% url 'product_list' %}" class="nav-item"><i class="fas fa-search"></i><span> Explore</span></a>
+        <a href="{% url 'track_order' %}" class="nav-item"><i class="fas fa-box"></i><span> Track Order</span></a>
+        <a href="{% url 'contact' %}" class="nav-item active"><i class="fas fa-phone"></i><span> Contact Us</span></a>
+    </div>
+
+</body>
+</html>
