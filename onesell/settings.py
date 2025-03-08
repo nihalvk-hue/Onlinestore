@@ -2,6 +2,17 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import django.core.files.locks as locks
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config( 
+  cloud_name = "dhxk8ygdo", 
+  api_key = "398873444286329", 
+  api_secret = "Gxebn9oy5V3nGxOdUKOSRruvKRg" 
+)
+
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # Load environment variables from .env file
 load_dotenv()

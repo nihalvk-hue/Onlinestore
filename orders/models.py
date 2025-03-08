@@ -3,6 +3,10 @@ import string
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 from products.models import Product, Color
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+from cloudinary.models import CloudinaryField
 
 def generate_order_id():
     """Generate a unique 5-character alphanumeric order ID."""
@@ -25,7 +29,7 @@ class Order(models.Model):
     address = models.TextField()
     pincode = models.CharField(max_length=10)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    payment_screenshot = models.FileField(upload_to="payment_screenshots/", blank=True, null=True)
+    payment_screenshot = CloudinaryField('payment_screenshots', blank=True, null=True)  # Use CloudinaryField
     upi_transaction_id = models.CharField(max_length=50, blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, default=1)
     selected_color = models.ForeignKey(Color, on_delete=models.SET_NULL, null=True, blank=True)
