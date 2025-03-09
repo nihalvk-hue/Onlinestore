@@ -5,6 +5,8 @@ import django.core.files.locks as locks
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+# Load environment variables from .env file
+load_dotenv()
 
 cloudinary.config( 
   cloud_name = "dhxk8ygdo", 
@@ -14,8 +16,7 @@ cloudinary.config(
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
-# Load environment variables from .env file
-load_dotenv()
+
 
 # Patch Django's file locking to work on Android/Termux
 def dummy_lock(f, *args, **kwargs):
