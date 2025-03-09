@@ -115,7 +115,6 @@
             font-weight: bold;
             cursor: pointer;
             text-decoration: none;
-
         }
 
         .cart-btn {
@@ -134,6 +133,16 @@
             margin-right: 20px;
         }
 
+        .stock-out {
+            background: gray;
+            color: white;
+            border: none;
+            margin-left: 2px;
+            margin-right: 20px;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
         .back-button {
             display: inline-block;
             font-size: 18px;
@@ -145,36 +154,14 @@
             border-radius: 5px;
             padding: 5px 10px;
         }
-        
 
-        
-/* Chrome-specific solution for Termux environment */
-html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, button {
-    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
-}
-
-.bottom-nav a {
-    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
-    -webkit-user-select: none !important;
-    -webkit-touch-callout: none !important;
-    outline: none !important;
-}
-
-/* Force remove all outline and highlighting behaviors */
-:active, :focus {
-    outline: 0 !important;
-    outline-style: none !important;
-    -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
-    -moz-outline-style: none !important;
-    box-shadow: none !important;
-}
     </style>
 </head>
 <body>
 
     <div class="container">
         <div class="backclass">
-        <a href="javascript:history.back()" class="back-button">← Back</a>
+            <a href="javascript:history.back()" class="back-button">← Back</a>
         </div>
 
         <!-- Main Product Image -->
@@ -212,18 +199,20 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, button {
         </div>
 
         <ul class="description">
-    {% for line in product.description.splitlines %}
-        <li>{{ line }}</li>
-    {% endfor %}
-      </ul>
+            {% for line in product.description.splitlines %}
+                <li>{{ line }}</li>
+            {% endfor %}
+        </ul>
 
         <!-- Buttons -->
         <div class="fixed-buttons">
             <!-- Add to Cart with Color -->
-            <a id="addToCartButton" href="{% url 'add_to_cart' product.id %}" class="btn cart-btn">ADD TO CART</a>
-
-            <!-- Buy Now -->
-            <a id="buyNowButton" href="{% url 'buy_product' product.id %}" class="btn buy-btn">BUY NOW</a>
+            {% if product.stock_status == "out_of_stock" %}
+                <a class="btn stock-out">STOCK OUT</a>
+            {% else %}
+                <a id="addToCartButton" href="{% url 'add_to_cart' product.id %}" class="btn cart-btn">ADD TO CART</a>
+                <a id="buyNowButton" href="{% url 'buy_product' product.id %}" class="btn buy-btn">BUY NOW</a>
+            {% endif %}
         </div>
     </div>
 

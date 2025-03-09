@@ -25,10 +25,10 @@ class ProductImageInline(admin.TabularInline):
 # Product Admin
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageInline]
-    list_display = ('id', 'name', 'category', 'price', 'old_price')  # Show important fields
-    list_filter = ('category',)  # Add category filter
+    list_display = ('id', 'name', 'category', 'price', 'old_price', 'stock_status')  # Show stock status
+    list_filter = ('category', 'stock_status')  # Add category and stock filter
     search_fields = ('name', 'description')  # Enable search by name and description
-    list_editable = ('price', 'old_price')  # Allow editing price directly
+    list_editable = ('price', 'old_price', 'stock_status')  # Allow editing stock status directly
     filter_horizontal = ("colors",)  
     ordering = ('id',)  # Order products by ID
 

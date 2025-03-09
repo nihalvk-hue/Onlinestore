@@ -32,7 +32,7 @@ def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)  # Fetch product by ID
     colors = product.colors.all()
     
-    return render(request, 'products/product_detail.html', {'product': product, 'colors':colors})
+    return render(request, 'products/product_detail.html', {'product': product, 'colors':colors, 'stock_status':product.stock_status})
 
 def contact_view(request):
   return render(request,'products/contact.html')
