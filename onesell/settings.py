@@ -44,7 +44,10 @@ SECRET_KEY = os.getenv("SECRET_KEY", "Aglzvm56@")  # Load from .env
 DEBUG = os.getenv("DEBUG", "True") == "True"  # Load from .env
 
 ALLOWED_HOSTS = ["onesell.onrender.com", "127.0.0.1", "localhost"]
+
 CSRF_TRUSTED_ORIGINS = ["https://onesell.onrender.com"]
+SESSION_COOKIE_SECURE = True  # Ensures session works over HTTPS
+CSRF_COOKIE_SECURE = True  # Ensures CSRF token is secure
 
 # Installed apps
 INSTALLED_APPS = [
