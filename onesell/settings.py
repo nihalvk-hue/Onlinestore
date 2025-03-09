@@ -5,18 +5,26 @@ import django.core.files.locks as locks
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-# Load environment variables from .env file
-load_dotenv()
+# At the top of settings.py, after the imports
+# Check if running in Termux environment
+IN_TERMUX = os.path.exists('/data/data/com.termux')
 
-cloudinary.config( 
-  cloud_name = "dhxk8ygdo", 
-  api_key = "398873444286329", 
-  api_secret = "Gxebn9oy5V3nGxOdUKOSRruvKRg" 
+# Load environment variables but skip DATABASE_URL in Termux
+load_dotenv()
+if IN_TERMUX:
+    os.environ.pop('DATABASE_URL', None)  # Remove DATABASE_URL if in Termux
+
+# Load environment variables from .env file
+
+
+# Cloudinary Configuration (Moved to .env for security)
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
 )
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
-
-
 
 # Patch Django's file locking to work on Android/Termux
 def dummy_lock(f, *args, **kwargs):
