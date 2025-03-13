@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
-from .sitemaps import StaticViewSitemap, ProductSitemap  # Import your sitemaps
+from onesell.sitemaps import StaticViewSitemap, ProductSitemap  # Import your sitemaps
 
 # Define sitemaps
 sitemaps = {
