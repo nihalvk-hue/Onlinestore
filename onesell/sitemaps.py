@@ -1,6 +1,6 @@
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
-from .models import Product  # Assuming you have a Product model
+from products.models import Product  # Assuming you have a Product model
 
 class StaticViewSitemap(Sitemap):
     priority = 0.5
