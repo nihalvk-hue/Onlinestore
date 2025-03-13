@@ -20,4 +20,4 @@ class ProductSitemap(Sitemap):
         return Product.objects.all()
 
     def lastmod(self, obj):
-        return obj.updated_at  # Make sure your Product model has an "updated_at" field 
+        return obj.created_at  # Make sure your Product model has an "updated_at" field 
