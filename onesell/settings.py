@@ -43,7 +43,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY", "Aglzvm56@")  # Load from .env
 DEBUG = os.getenv("DEBUG", "True") == "True"  # Load from .env
 
-ALLOWED_HOSTS = ["onesell.onrender.com", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["onesell.onrender.com", "127.0.0.1", "localhost", "testserver"]
 
 CSRF_TRUSTED_ORIGINS = ["https://onesell.onrender.com"]
 SESSION_COOKIE_SECURE = True  # Ensures session works over HTTPS
