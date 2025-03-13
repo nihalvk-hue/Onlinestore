@@ -62,8 +62,10 @@ INSTALLED_APPS = [
     "cart",
     "orders",
     "onesell",
+    "django.contrib.sites",
     "django.contrib.sitemaps",
 ]
+SITE_ID = 1
 
 # Middleware
 MIDDLEWARE = [
@@ -142,5 +144,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-SITE_ID = 1
