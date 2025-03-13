@@ -51,6 +51,8 @@ CSRF_COOKIE_SECURE = True  # Ensures CSRF token is secure
 
 # Installed apps
 INSTALLED_APPS = [
+    "django.contrib.sites",
+    "django.contrib.sitemaps",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -62,8 +64,6 @@ INSTALLED_APPS = [
     "cart",
     "orders",
     "onesell",
-    "django.contrib.sites",
-    "django.contrib.sitemaps",
 ]
 SITE_ID = 1
 
