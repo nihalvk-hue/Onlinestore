@@ -61,7 +61,8 @@ INSTALLED_APPS = [
     "products",
     "cart",
     "orders",
-    "onesell"
+    "onesell",
+    "django.contrib.sitemaps",
 ]
 
 # Middleware
