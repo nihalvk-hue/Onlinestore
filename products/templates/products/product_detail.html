@@ -186,6 +186,7 @@
         </p>
 
         <!-- Color Options -->
+        {% if colors %}
         <p>Colors</p>
         <div class="options">
             {% for color in colors %}
@@ -197,6 +198,7 @@
                 </label>
             {% endfor %}
         </div>
+        {% endif %}
 
         <ul class="description">
             {% for line in product.description.splitlines %}
