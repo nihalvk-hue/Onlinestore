@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ product.name }}</title>
+    <title>{{ product.name }} - Buy Online at Onesell</title>
+        <meta name="description" content="{{ product.description|truncatewords:20 }}">
+            <meta property="og:title" content="{{ product.name }} - Buy Online at Onesell">
+                <meta property="og:description" content="{{ product.description|truncatewords:20 }}">
+                    <meta property="og:image" content="{{ product.image.url }}">
+                        <meta property="og:url" content="https://onesell.onrender.com/product/{{ product.id }}">
     
     <script>
         let selectedColorId = null; // Store selected color globally
