@@ -1,20 +1,21 @@
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
-from .models import Product
+from .models import Product  # Ensure this import is correct
 
 class StaticViewSitemap(Sitemap):
     priority = 0.5
-    changefreq = 'weekly'
+    changefreq = "weekly"
 
     def items(self):
-        return ['home','product_list','product_detail']
+        return ['home', 'product_list']  # Ensure these views exist in urls.py
 
     def location(self, item):
         return reverse(item)
 
+
 class ProductSitemap(Sitemap):
     priority = 0.8
-    changefreq = 'daily'
+    changefreq = "daily"
 
     def items(self):
         try:
@@ -27,11 +28,10 @@ class ProductSitemap(Sitemap):
 
     def location(self, obj):
         try:
-         # Replace with your actual URL pattern name and required parameters
-            return reverse('product_detail', kwargs={'pk': obj.pk})
+            return reverse('product_detail', kwargs={'product_id': obj.pk})  # Ensure this matches urls.py
         except Exception as e:
             print(f"Error in ProductSitemap.location(): {e}")
-            return '/'
+            return "/"
 
     def lastmod(self, obj):
         try:
